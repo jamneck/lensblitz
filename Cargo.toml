@@ -5,6 +5,9 @@ edition = "2024"
 rust-version = "1.95"
 description = "An extremely fast, read-only Markdown viewer for macOS"
 readme = "README.md"
+license = "MIT"
+repository = "https://github.com/jamneck/lensblitz"
+homepage = "https://github.com/jamneck/lensblitz"
 keywords = ["markdown", "viewer", "macos", "egui"]
 categories = ["text-processing", "visualization"]
 

@@ -15,6 +15,17 @@ on screen, beautifully typeset, before you have let go of the mouse.
 
 ## Install
 
+### Homebrew
+
+```sh
+brew install jamneck/tap/lensblitz
+cp -R "$(brew --prefix lensblitz)/LensBlitz.app" /Applications/
+```
+
+Homebrew builds LensBlitz from source (it installs Rust for the build if you do not have
+it), so the first install takes a few minutes. The second line puts the app where Finder
+can find it.
+
 ### From source
 
 You need [Rust](https://rustup.rs) 1.95 or newer.
@@ -31,22 +42,6 @@ install without touching system folders.
 
 Other targets: `make app` (just build `dist/LensBlitz.app`), `make build` (just the
 binary, in `target/release/lensblitz`), `make uninstall`.
-
-### Homebrew
-
-`Formula/lensblitz.rb` builds the same thing with Homebrew, from
-`github.com/jamneck/lensblitz`. Put the formula in a tap and install it:
-
-```sh
-brew tap-new jamneck/tap
-cp Formula/lensblitz.rb "$(brew --repository jamneck/tap)/Formula/"
-brew install --HEAD jamneck/tap/lensblitz
-```
-
-The repository is private, so git must be able to read it (an SSH key or a credential
-helper). Homebrew prints how to copy the bundled `LensBlitz.app` into `/Applications`
-afterwards. Note that `brew install` also upgrades any outdated packages the build depends
-on, such as `rust`.
 
 ## Make LensBlitz the default app for Markdown
 
@@ -190,3 +185,15 @@ LensBlitz embeds [Inter](https://rsms.me/inter/) (roman and italic) and
 [JetBrains Mono](https://www.jetbrains.com/lp/mono/), both under the SIL Open Font
 License 1.1 (`assets/fonts/OFL-*.txt`). The files are variable fonts limited to weights
 400–700, with programming ligatures and stylistic alternates removed.
+
+## License
+
+LensBlitz is released under the [MIT License](LICENSE).
+
+## Made by
+
+LensBlitz is built at [Dimensie](https://dimensie.co.za) and
+[Jams Digital](https://jams.digital).
+
+Want software that does one job and does it fast?
+[Tell Dimensie what you need](https://dimensie.co.za).
