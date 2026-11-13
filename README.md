@@ -4,12 +4,12 @@
 
 <p align="center">
   <b>A native Markdown reader for macOS.</b><br>
-  On screen in about 140 ms, beautifully typeset, and live as you save.
+  On screen in about 140 ms on an M4 Max, beautifully typeset, and live as you save.
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/macOS-native-0E1226?style=flat-square&logo=apple&logoColor=white" alt="Native macOS">
-  <img src="https://img.shields.io/badge/Apple%20Silicon%20%2B%20Intel-universal-3F64FF?style=flat-square" alt="Universal: Apple Silicon and Intel">
+  <img src="https://img.shields.io/badge/Apple%20Silicon%20%2B%20Intel-supported-3F64FF?style=flat-square" alt="Supports Apple Silicon and Intel">
   <img src="https://img.shields.io/badge/first%20frame-~140%20ms-7F98FF?style=flat-square" alt="About 140 ms to first frame">
   <img src="https://img.shields.io/badge/Rust-no%20Electron-B7410E?style=flat-square&logo=rust&logoColor=white" alt="Rust, no Electron">
   <img src="https://img.shields.io/badge/license-MIT-0E1226?style=flat-square" alt="MIT license">
@@ -24,8 +24,8 @@ cp -R "$(brew --prefix lensblitz)/LensBlitz.app" /Applications/
 
 ## A quick read shouldn't start with a wait
 
-You double-click a `.md` file to read it. Too often a whole editor starts up instead, and the
-thought you came for is gone.
+You double-click a `.md` file to read it. Too often a whole editor starts up instead, and you
+wait for a tool you didn't need.
 
 Nobody should have to launch a code editor to read a page of text.
 
@@ -36,7 +36,7 @@ Nobody should have to launch a code editor to read a page of text.
   alerts, light and dark.
 - **Live as you save.** Edit in any editor, or let an AI agent write. The page updates in about
   15 ms and keeps your place.
-- **Nothing to set up.** No editing, no settings, no plugins. It reads Markdown.
+- **Just for reading.** No editing, no settings, no plugins. It reads Markdown.
 
 <p align="center">
   <picture>
@@ -59,7 +59,7 @@ shows up in place.
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/speed-dark.png">
-    <img src="docs/speed-light.png" alt="Timeline: window ready at about 100 ms, page painted at about 105 ms, visible at about 140 ms. Reload after save about 15 ms. A 4 MB document painted in about 115 ms. 0% CPU while idle." width="100%">
+    <img src="docs/speed-light.png" alt="Timeline: window ready at about 100 ms, page painted at about 105 ms, visible at about 140 ms. Reload after save about 15 ms. The first screen of a 4 MB document painted in about 115 ms. 0% CPU while idle." width="100%">
   </picture>
 </p>
 
@@ -69,7 +69,7 @@ shows up in place.
 </sub></p>
 
 No webview, no Electron: a native app, written in Rust. Your file is parsed while the window
-opens, and only what is on screen gets laid out.
+opens. What you see is laid out first; the rest follows in the background.
 
 ## Reading in three steps
 
@@ -77,7 +77,7 @@ opens, and only what is on screen gets laid out.
   <tr>
     <td width="33%" valign="top">
       <h3>1. Install</h3>
-      Run the two lines below. Homebrew builds LensBlitz on your Mac in a few minutes.
+      Run the two lines below. Homebrew builds LensBlitz on your Mac and you copy it to Applications.
     </td>
     <td width="33%" valign="top">
       <h3>2. Make it the default</h3>
@@ -86,7 +86,7 @@ opens, and only what is on screen gets laid out.
     </td>
     <td width="33%" valign="top">
       <h3>3. Double-click</h3>
-      Your Markdown files open, ready to read. Save it elsewhere and the page follows.
+      Your Markdown files open, ready to read. Edit one anywhere and the page follows.
     </td>
   </tr>
 </table>
@@ -232,7 +232,8 @@ Retina-resolution surfaces rather than the document.
 - `src/layout.rs` lays one block out into galleys and shapes. `src/view.rs` lays out only the
   blocks on screen, measures the rest a few milliseconds per frame, keeps the reading position
   stable while heights settle, and drops the glyph geometry of blocks that scroll far away.
-- On reload, blocks are matched by content hash, so only what changed is laid out again.
+- On reload, content hashes find the unchanged blocks at the start and end of the document, and
+  their layout is reused.
 - `src/highlight.rs` is a small hand-written lexer for about fifty languages. It has no grammar
   files to load, which keeps start-up and memory flat.
 - `src/watch.rs` watches open files with kqueue; `src/images.rs` decodes and fetches images on
@@ -283,6 +284,7 @@ programming ligatures and stylistic alternates removed.
 
 ```sh
 brew install jamneck/tap/lensblitz
+cp -R "$(brew --prefix lensblitz)/LensBlitz.app" /Applications/
 ```
 
 <p align="center">
